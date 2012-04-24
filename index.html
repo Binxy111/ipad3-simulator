@@ -110,7 +110,7 @@
 				}	
 			}
 			
-			slider.onmouseup = function(e){
+			slider.addEventListener('mouseup', function(e){
 				if(parseInt(slider.style.left, 10) < 197){
 					slider.style.left = 0 + 'px';
 					slideText.style.opacity = 1;
@@ -119,8 +119,7 @@
 					console.log('here');
 					Content.unlock();
 				}
-
-			};
+			}, false);
 			track.onmousedown = function(e){
 				slider.style.left = 0 + 'px';
 			};
