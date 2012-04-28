@@ -11,12 +11,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-    <meta name="keywords" content="Ipad, ipad simulator, apple ipad ,ipad3, iPad3, iPad3 simulator, apple ipad3, seancoker.com, sean, coker, ipad3, javascript, simulator">
+    <meta name="keywords" content="Ipad, ipad simulator, apple ipad ,ipad3, iPad3, iPad3 simulator, apple ipad3, seancoker.com, sean, coker, ipad3, javascript, simulator,jQuery,no image">
      <meta name="description" content="This is a no image using CSS3/JavaScript iPad3 simulator pushing the limits of what can be done natively and creatively">
          
 <title>iPad3 Simulator</title>
 <link rel="stylesheet" type="text/css" href="styles/styles.css" />
 <link rel="shortcut icon" href="/favicon.ico">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script type="text/javascript">
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-19800563-1']);
@@ -89,46 +90,24 @@
 	</div>
 <script src="js/ipad.js"></script>
 <script src="js/content.js"></script>
-<script src="js/topbar.js"></script>
-<script src="js/flower.js"></script>
+<script src="js/lockscreen.js"></script>
 <script src="js/dragdealer.js"></script>
 <script type="text/javascript">
 
 	new Dragdealer('slider',{
 		slide: false,
 		animationCallback: function(x, y){
-			
-			var slider = document.getElementById('dragme'),
-				slideText = document.getElementById('slidetounlock'),
-				track = document.getElementById('slider');
-			
-			slideText.style.opacity = (-.02 * parseInt(slider.style.left, 10)) + 1;
-			
-			if(parseInt(slider.style.left, 10) > 1){
-				if(slideText.className.indexOf('animate') !== -1){
-					slideText.className = slideText.className.substring(0,slideText.className.indexOf('animate'));
-				}	
-			}
-			
-			slider.addEventListener('mouseup', function(e){
-				if(parseInt(slider.style.left, 10) < 197){
-					slider.style.left = 0 + 'px';
-					slideText.style.opacity = 1;
-					slideText.className += 'animate';
-				} else if(parseInt(slider.style.left, 10) == 197){
-					console.log('here');
-					Content.unlock();
-				}
-			}, false);
-			track.onmousedown = function(e){
-				slider.style.left = 0 + 'px';
+			Ipad.areas.slideText.style.opacity = (-.02 * parseInt(Ipad.areas.unlock_knob.style.left, 10)) + 1;
+			Ipad.areas.track.onmousedown = function(e){
+				Ipad.areas.unlock_knob.style.left = 0 + 'px';
 			};
 		}
+		
 	});	
 	
 	Ipad.areas.power_btn.onclick = function(){Content.power()};
 	Ipad.areas.home_btn.onclick = function(){if(Content.off){Content.power()}};
-	Petals.draw(16);
+	Lockscreen.petals.draw(16);
 	
 </script>
 </body>

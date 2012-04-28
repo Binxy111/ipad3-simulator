@@ -8,7 +8,8 @@ var Content = {
 		Ipad.areas.lock_icon.style.display = 'none';
 		Ipad.areas.unlock_bar.style.display = 'none';
 		Ipad.areas.lock_bar.style.display = 'none';
-		setTimeout(function(){Topbar.clock(Ipad.areas.time, true);}, 1000);		
+		this.lock = false;
+		Lockscreen.init();
 	},
 	power : function(){
 		if(!this.off){
@@ -25,6 +26,13 @@ var Content = {
 			Ipad.areas.lock_bar.style.display = 'block';
 			Ipad.areas.unlock_knob.left = 0 + 'px';
 			this.off = false;
+		}
+	},
+	checkSlide : function () {
+		if(Ipad.areas.slideText.className.indexOf('animate') !== -1){
+			Ipad.areas.slideText.className = Ipad.areas.slideText.className.substring(0, Ipad.areas.slideText.className.indexOf('animate'));
+		} else if(Ipad.areas.slideText.className.indexOf('animate') == -1){
+			Ipad.areas.slideText.className += 'animate';
 		}
 	},
 	els : {

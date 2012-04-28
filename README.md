@@ -1,4 +1,4 @@
 ipad3-simulator
 ===============
 
-A no-image CSS3/JavaScript iPad3 Simulation
+A no-image CSS3/JavaScript/jQuery iPad3 Simulation
