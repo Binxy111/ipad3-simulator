@@ -105,8 +105,8 @@
 		
 	});	
 	
-	Ipad.areas.power_btn.onclick = function(){Content.power()};
-	Ipad.areas.home_btn.onclick = function(){if(Content.off){Content.power()}};
+	Ipad.areas.power_btn.onclick = function(){Content.power();return false;};
+	Ipad.areas.home_btn.onclick = function(){if(Content.off){Content.power()}return false;};
 	Lockscreen.petals.draw(16);
 	
 </script>
