@@ -18,7 +18,7 @@ var Ipad = {
 		'home_btn' 		: document.getElementById('home'),
 		'power_btn' 	: document.getElementById('power'),
 		'unlock_knob'	: document.getElementById('dragme'),
-		'slideText'		: document.getElementById('slidetounlock'),
+		'slide_text'	: document.getElementById('slidetounlock'),
 		'track'			: document.getElementById('slider')
 	}
 }

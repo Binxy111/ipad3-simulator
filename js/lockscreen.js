@@ -1,15 +1,16 @@
 var Lockscreen = {
+	timer: '',
 	init : function(){
 		var self = this;
 		if(!Content.lock){
-			setInterval(function(){self.clock(Ipad.areas.time, true);}, 1000);
+			self.timer = setInterval(function(){self.clock(Ipad.areas.time, true);}, 1000);
 		} else {
 			document.getElementById('lock').style.display = "block";
-			setInterval(function(){self.clock(Ipad.areas.lock_time, false, true);}, 1000);
+			self.timer = setInterval(function(){self.clock(Ipad.areas.lock_time, false, true);}, 1000);
 			$('#dragme').mouseup(function(){
 				if(parseInt(Ipad.areas.unlock_knob.style.left, 10) < 196){
 					Ipad.areas.unlock_knob.style.left = 0 + 'px';					
-					Ipad.areas.slideText.style.opacity = 1;
+					Ipad.areas.slide_text.style.opacity = 1;
 					if(!$('#slidetounlock').hasClass('animate')){
 						$('#slidetounlock').addClass('animate');
 					}
@@ -31,9 +32,6 @@ var Lockscreen = {
 				}
 			});	
 		}
-	},
-	els : {
-			
 	},
 	clock : function(area,suffix,locked){
 				var date = new Date(), 
