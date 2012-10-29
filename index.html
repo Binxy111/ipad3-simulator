@@ -1,11 +1,11 @@
  <!--
-   ____   __    __   ______      _____     ____     __    __    _____        ____     ______      _____      ___       ___    _____   ______   
-  / ___)  ) )  ( (  (   __ \    (_   _)   / __ \    ) )  ( (   / ____\      (    )   (   __ \    / ___/     (  (       )  )  / ___/  (_____ \  
- / /     ( (    ) )  ) (__) )     | |    / /  \ \  ( (    ) ) ( (___        / /\ \    ) (__) )  ( (__        \  \  _  /  /  ( (__       ___) ) 
-( (       ) )  ( (  (    __/      | |   ( ()  () )  ) )  ( (   \___ \      ( (__) )  (    __/    ) __)        \  \/ \/  /    ) __)     (  __/  
-( (      ( (    ) )  ) \ \  _     | |   ( ()  () ) ( (    ) )      ) )      )    (    ) \ \  _  ( (            )   _   (    ( (         )_)    
- \ \___   ) \__/ (  ( ( \ \_))   _| |__  \ \__/ /   ) \__/ (   ___/ /      /  /\  \  ( ( \ \_))  \ \___        \  ( )  /     \ \___     __     
-  \____)  \______/   )_) \__/   /_____(   \____/    \______/  /____/      /__(  )__\  )_) \__/    \____\        \_/ \_/       \____\   (__)    
+   ____   __    __   ______      _____     ____     __    __    _____        ____     ______      _____      ___       ___    _____   ______
+  / ___)  ) )  ( (  (   __ \    (_   _)   / __ \    ) )  ( (   / ____\      (    )   (   __ \    / ___/     (  (       )  )  / ___/  (_____ \
+ / /     ( (    ) )  ) (__) )     | |    / /  \ \  ( (    ) ) ( (___        / /\ \    ) (__) )  ( (__        \  \  _  /  /  ( (__       ___) )
+( (       ) )  ( (  (    __/      | |   ( ()  () )  ) )  ( (   \___ \      ( (__) )  (    __/    ) __)        \  \/ \/  /    ) __)     (  __/
+( (      ( (    ) )  ) \ \  _     | |   ( ()  () ) ( (    ) )      ) )      )    (    ) \ \  _  ( (            )   _   (    ( (         )_)
+ \ \___   ) \__/ (  ( ( \ \_))   _| |__  \ \__/ /   ) \__/ (   ___/ /      /  /\  \  ( ( \ \_))  \ \___        \  ( )  /     \ \___     __
+  \____)  \______/   )_) \__/   /_____(   \____/    \______/  /____/      /__(  )__\  )_) \__/    \____\        \_/ \_/       \____\   (__)
 -->
 <!DOCTYPE HTML>
 <html>
@@ -13,16 +13,15 @@
 	<meta charset="utf-8">
     <meta name="keywords" content="Ipad, ipad simulator, apple ipad ,ipad3, iPad3, iPad3 simulator, apple ipad3, seancoker.com, sean, coker, ipad3, javascript, simulator,jQuery,no image">
      <meta name="description" content="This is a no image using CSS3/JavaScript iPad3 simulator pushing the limits of what can be done natively and creatively">
-         
+
 <title>iPad3 Simulator</title>
 <link rel="stylesheet" type="text/css" href="styles/styles.css" />
 <link rel="shortcut icon" href="/favicon.ico">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script type="text/javascript">
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-19800563-1']);
 	_gaq.push(['_trackPageview']);
-	
+
 	(function() {
 	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -41,7 +40,7 @@
 		<div id="screen">
 			<div id="topbar">
 				<p id="name">iPad</p>
-                <div id="wifi">	
+                <div id="wifi">
                		<span class="wifidot"></span>
                     <span class="wifi1"></span>
                     <span class="wifi2"></span>
@@ -53,7 +52,7 @@
                     </div>
                 </div>
 				<p id="battery">
-                	<span class="percent">28%</span> 
+                	<span class="percent">28%</span>
                     <span class="icon">
                     	<span class="level"></span>
                         <span class="node"></span>
@@ -65,8 +64,8 @@
 					<span id="locktime">88:88</span><br>
 					<span id="lockdate"></span>
 				</div>
-                
-                
+
+
                 <div id="unlockbar">
                 	<div id="slider">
 						<span id="slidetounlock" class="slidetounlock animate">slide to unlock</span>
@@ -82,33 +81,19 @@
                         </div>
                		</div>
 				</div>
-                
+
 			</div>
 		</div>
 		<a id="home" href="#"><span></span></a>
 		<div id="camera" href="#"><span></span></div>
 	</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="js/ipad.js"></script>
 <script src="js/content.js"></script>
 <script src="js/lockscreen.js"></script>
 <script src="js/dragdealer.js"></script>
-<script type="text/javascript">
+<script src="js/app.js"></script>
 
-	new Dragdealer('slider',{
-		slide: false,
-		animationCallback: function(x, y){
-			Ipad.areas.slide_text.style.opacity = (-.02 * parseInt(Ipad.areas.unlock_knob.style.left, 10)) + 1;
-			Ipad.areas.track.onmousedown = function(e){
-				Ipad.areas.unlock_knob.style.left = 0 + 'px';
-			};
-		}
-		
-	});	
-	
-	Ipad.areas.power_btn.onclick = function(){Content.power();return false;};
-	Ipad.areas.home_btn.onclick = function(){if(Content.off){Content.power()}return false;};
-	Lockscreen.petals.draw(16);
-	
-</script>
 </body>
 </html>
