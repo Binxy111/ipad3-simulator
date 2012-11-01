@@ -1,41 +1,63 @@
 /*global
-	$, Lockscreen, Ipad, Content, Dragdealer
+	$, Lockscreen, Ipad, Dragdealer
 */
-var App = {
+var App = (function() {
 
-	init: function() {
-		App.createStuff();
-		App.attachEvents();
-	},
+	function init() {
+		createStuff();
+		attachEvents();
+	}
 
-	createStuff: function() {
+	function createStuff() {
 		Lockscreen.petals.draw(16);
+		Lockscreen.init();
 
-		new Dragdealer('slider',{
+		new Dragdealer('slider', {
 			slide: false,
-			animationCallback: function(x, y){
+			animationCallback: function(x, y) {
 				Ipad.areas.slide_text.style.opacity = (-0.02 * parseInt(Ipad.areas.unlock_knob.style.left, 10)) + 1;
-				Ipad.areas.track.onmousedown = function(e){
+				/*Ipad.areas.slider.onmousedown = function(e){
 					Ipad.areas.unlock_knob.style.left = 0 + 'px';
-				};
+				};*/
 			}
 
 		});
-	},
 
-	attachEvents: function() {
-		Ipad.areas.power_btn.onclick = function() {
-			Content.power();
-			return false;
-		};
-
-		Ipad.areas.home_btn.onclick = function() {
-			if (Content.off) {
-				Content.power();
+		new Dragdealer('volume_slider', {
+			slide: false,
+			animationCallback: function(x, y) {
+				console.log(x);
 			}
-			return false;
-		};
+
+		});
 	}
-};
+
+	function attachEvents() {
+		Ipad.areas.power_btn.addEventListener('click', powerOff.bind(null, false));
+		Ipad.areas.home_btn.addEventListener('click', powerOff.bind(null, true));
+		Ipad.areas.home_btn.addEventListener('dblclick', Lockscreen.loadPlayer);
+		Ipad.areas.prev_btn.addEventListener('click', Lockscreen.prevPlayer);
+		Ipad.areas.play_btn.addEventListener('click', Lockscreen.playPlayer);
+		Ipad.areas.next_btn.addEventListener('click', Lockscreen.nextPlayer);
+	}
+
+	function powerOff(home_btn, e) {
+		e = e || window.event;
+		if (home_btn === true) {
+			if (Lockscreen.off) {
+				Lockscreen.power();
+			}
+		} else {
+			Lockscreen.power();
+		}
+		e.returnValue = false;
+		return false;
+	}
+
+	return {
+		init: init
+	};
+
+})();
 
 App.init();
