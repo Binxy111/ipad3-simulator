@@ -143,7 +143,7 @@ var Lockscreen = {
 
 	loadPlayer: function() {
 		var self = Lockscreen;
-
+		clearInterval(self.song_loaded_timer);
 		if (!self.music) {
 			self.clock(Ipad.areas.clock, true);
 			self.timer = setInterval(function() {

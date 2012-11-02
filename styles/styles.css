@@ -98,7 +98,7 @@ body {
     border-radius:2px;
     background-color:#FFF;
 }
-#wifi .wifi1    {
+#wifi .wifi1 {
      position:absolute;
      left:27px;
      bottom:3px;
@@ -113,7 +113,7 @@ body {
 	 -webkit-transform:rotate(-45deg);
 	 -moz-transform:rotate(-45deg);
  }
-#wifi .wifi2   {
+#wifi .wifi2 {
      position:absolute;
      left:25px;
      bottom:4px;
@@ -127,7 +127,7 @@ body {
      border-bottom:none;
 	 -webkit-transform:rotate(-45deg);
 	 -moz-transform:rotate(-45deg);
- }
+}
 #time {
 	position:relative;
 	text-align:center;
@@ -199,22 +199,24 @@ body {
 	right:-3px;
 	top:1px;
 }
+#slideshow:hover, #unlockbar #slider .handle:hover, .player_btn {
+	cursor: pointer;
+}
 .player_btn {
-	cursor:pointer;
 	background:#000;
-	background-image: linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(56,56,56) 53%, rgb(255,255,255) 96%);
-	background-image: -o-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(56,56,56) 53%, rgb(255,255,255) 96%);
-	background-image: -moz-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(56,56,56) 53%, rgb(255,255,255) 96%);
-	background-image: -webkit-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(56,56,56) 53%, rgb(255,255,255) 96%);
-	background-image: -ms-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(56,56,56) 53%, rgb(255,255,255) 96%);
+	background-image: linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(133,133,133) 53%, rgb(255,255,255) 89%);
+	background-image: -o-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(133,133,133) 53%, rgb(255,255,255) 89%);
+	background-image: -moz-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(133,133,133) 53%, rgb(255,255,255) 89%);
+	background-image: -webkit-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(133,133,133) 53%, rgb(255,255,255) 89%);
+	background-image: -ms-linear-gradient(right bottom, rgb(0,0,0) 48%, rgb(133,133,133) 53%, rgb(255,255,255) 89%);
 
 	background-image: -webkit-gradient(
 		linear,
 		right bottom,
 		left top,
 		color-stop(0.48, rgb(0,0,0)),
-		color-stop(0.53, rgb(56,56,56)),
-		color-stop(0.96, rgb(255,255,255))
+		color-stop(0.53, rgb(133,133,133)),
+		color-stop(0.89, rgb(255,255,255))
 	);
 }
 
@@ -250,6 +252,92 @@ body {
 	position: absolute;
 }
 
+#volume_knob * {
+	display: block;
+	float:left;
+}
+
+#volume_knob .base {
+	width: 4px;
+	height: 5px;
+	background: #fff;
+	position: relative;
+	left: 3px;
+	top: 10px;
+}
+
+#volume_knob .front {
+	width: 0;
+	height: 0;
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent;
+	border-right: 7px solid #fff;
+	display: block;
+	position: relative;
+	left: -1px;
+	top: 5px;
+}
+
+#volume_knob .one {
+    position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 100;
+	display: block;
+	width: 2px;
+	height: 2px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-o-border-radius: 4px;
+	border-radius: 4px;
+	border-width: 2px 2px 0 0;
+	border-color: white;
+	border-style: solid;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+#volume_knob .two {
+	position:absolute;
+	left: 11px;
+	top: 8px;
+	display: block;
+	width: 5px;
+	height: 6px;
+	background:none;
+	border:2px solid #fff;
+	border-top-right-radius:8px;
+	border-left:none;
+	border-bottom:none;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+ }
+#volume_knob .three {
+     position: absolute;
+     left: 11px;
+     top: 6px;
+     display:block;
+     width:10px;
+     height:10px;
+     background:none;
+     border:2px solid #fff;
+     border-top-right-radius:14px;
+     border-left:none;
+     border-bottom:none;
+	 -webkit-transform:rotate(45deg);
+	 -moz-transform:rotate(45deg);
+}
+#track {
+	text-align: center;
+	position: absolute;
+	width: 300px;
+	height: 70px;
+	left: 370px;
+	top: 30px;
+}
+
 .player_controls {
 	position: relative;
 	right: 170px;
@@ -282,13 +370,53 @@ body {
 	margin-top: 0;
 }
 
-.player_controls #play:after {
-	/*border-left: 40px solid #fff;
-	width: 40px;
-	height: 30px;
-	border-top: transparent;
-	border-bottom: transparent;*/
-	/*content: 'span';*/
+#play span {
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 20px solid #fff;
+	display: block;
+	position: relative;
+	left: 16px;
+	top: 14px;
+}
+
+
+#next .first, #next .second, #next .third {
+	width: 0;
+	height: 0;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+	border-left: 7px solid #fff;
+	display: block;
+	position: relative;
+	left: 12px;
+	top: 11px;
+	float: left;
+}
+
+#next .third {
+	border-width: 8px 0px 8px 3px;
+	border-color: #fff;
+}
+
+#prev .first, #prev .second, #prev .third {
+	width: 0;
+	height: 0;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+	border-right: 7px solid #fff;
+	display: block;
+	position: relative;
+	left: 11px;
+	top: 11px;
+	float: left;
+}
+
+#prev .first {
+	border-width: 8px 3px 8px 0px;
+	border-color: #fff;
 }
 
 .player_controls .player_btn:first-child {
@@ -642,10 +770,8 @@ body {
 	border-top: 5px solid #fff;
 	font-size:16px;
 }
-#slideshow:hover, #unlockbar #slider .handle:hover{
-	cursor:pointer;
-}
-#slideshow:active span, #slideshow:active div{
+
+#slideshow:active span, #slideshow:active div, #slideshow.active span, #slideshow.active div{
 	border-color:#0CF !important;
 	box-shadow:0 0 40px #FFF;
 	-moz-box-shadow:0 0 40px #FFF;
