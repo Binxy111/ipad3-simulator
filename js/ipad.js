@@ -15,6 +15,7 @@ var Ipad = {
 		'lock_bar'		: document.getElementById('lockbar'),
 		'top_bar'		: document.getElementById('topbar'),
 		'unlock_bar'	: document.getElementById('unlockbar'),
+		'volume_filler'	: document.getElementById('volume_filler'),
 		'player_bar'	: document.getElementById('playerbar'),
 		'home_btn'		: document.getElementById('home'),
 		'power_btn'		: document.getElementById('power'),

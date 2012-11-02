@@ -241,6 +241,33 @@ body {
 	float: left;
 }
 
+#volume_filler {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 95%;
+	width: 0%;
+	-webkit-border-radius: 43px;
+	-moz-border-radius: 43px;
+	-ms-border-radius: 43px;
+	-o-border-radius: 43px;
+	border-radius: 43px;
+	background-image: linear-gradient(bottom, rgb(0,0,0) 48%, rgb(166,166,166) 53%, rgb(255,255,255) 89%);
+	background-image: -o-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(166,166,166) 53%, rgb(255,255,255) 89%);
+	background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(166,166,166) 53%, rgb(255,255,255) 89%);
+	background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(166,166,166) 53%, rgb(255,255,255) 89%);
+	background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 48%, rgb(166,166,166) 53%, rgb(255,255,255) 89%);
+
+	background-image: -webkit-gradient(
+		linear,
+		right bottom,
+		right top,
+		color-stop(0.48, rgb(0,0,0)),
+		color-stop(0.53, rgb(166,166,166)),
+		color-stop(0.89, rgb(255,255,255))
+	);
+}
+
 #volume_knob {
 	height: 25px;
 	width: 25px;

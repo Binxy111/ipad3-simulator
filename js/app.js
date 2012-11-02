@@ -26,7 +26,14 @@ var App = (function() {
 		new Dragdealer('volume_slider', {
 			slide: false,
 			animationCallback: function(x, y) {
-				console.log(x);
+				if (x < 0.21) { //breakpoints for making volume knob stay above fill
+					Ipad.areas.volume_filler.style.width = ((x * 100) + 10) + '%';
+				} else if (x < 0.58) {
+					Ipad.areas.volume_filler.style.width = ((x * 100) + 5) + '%';
+				} else {
+					Ipad.areas.volume_filler.style.width = (x * 100) + '%';
+				}
+
 			}
 
 		});
