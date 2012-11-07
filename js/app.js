@@ -1,7 +1,9 @@
 /*global
-	$, Lockscreen, Ipad, Dragdealer
+	$, Lockscreen, Ipad, Dragdealer, Itunes
 */
 var App = (function() {
+
+	var itunes_is_loaded = false;
 
 	function init() {
 		createStuff();
@@ -61,8 +63,14 @@ var App = (function() {
 		return false;
 	}
 
+	function loadItunes() {
+		console.log('itunes loaded');
+	}
+
 	return {
-		init: init
+		init: init,
+		itunes_is_loaded: itunes_is_loaded,
+		loadItunes: loadItunes
 	};
 
 })();

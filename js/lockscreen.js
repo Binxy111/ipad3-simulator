@@ -143,6 +143,10 @@ var Lockscreen = {
 
 	loadPlayer: function() {
 		var self = Lockscreen;
+		if (!App.itunes_is_loaded) {
+			App.loadItunes();
+			App.itunes_is_loaded = true;
+		}
 		clearInterval(self.song_loaded_timer);
 		if (!self.music) {
 			self.clock(Ipad.areas.clock, true);
