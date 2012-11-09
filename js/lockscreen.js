@@ -8,7 +8,6 @@ var Lockscreen = {
 	music_screen_displayed	: false, // is the music player displayed?
 	song_loaded				: false, //has a song been played yet?
 	song_loaded_timer		: null, //timer for MUSIC_TIME
-	song_is_paused			: true, //keeps track of pause/play
 
 
 	// constants___________________________________________
@@ -105,7 +104,7 @@ var Lockscreen = {
 			if (!self.lock) {
 				self.lock = true;
 			}
-
+			self.music_screen_displayed = false;
 			self.showLockSetup();
 			self.off = false;
 		}
@@ -179,47 +178,10 @@ var Lockscreen = {
 	//Event Handlers _________________________________________________
 
 	loadPlayer: function() {
-		if (!App.itunes_is_loaded) {
-			App.loadItunes();
-			App.itunes_is_loaded = true;
-		}
 
 		Lockscreen.handleMusicScreen();
 
 		Lockscreen.music_screen_displayed = !Lockscreen.music_screen_displayed;
-	},
-
-	pausePlay: function() {
-		var self = Lockscreen;
-		if (self.song_is_paused) {
-			self.playPlayer();
-			self.song_is_paused = false;
-		} else {
-			self.pausePlayer();
-			self.song_is_paused = true;
-		}
-		self.song_loaded = true;
-		clearTimeout(self.song_loaded_timer);
-	},
-
-	playPlayer: function() {
-		alert('play shit');
-		return false;
-	},
-
-	pausePlayer: function() {
-		alert('pause shit');
-		return false;
-	},
-
-	nextPlayer: function() {
-		alert('next shit');
-		return false;
-	},
-
-	prevPlayer: function() {
-		alert('previous shit');
-		return false;
 	}
 
 };

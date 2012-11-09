@@ -1,6 +1,25 @@
 *{margin:0;padding:0;}
+html {
+	background: #ffffff; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #ffffff 42%, #E0D1B3 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(42%,#ffffff), color-stop(100%,#E0D1B3)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 42%,#E0D1B3 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  #ffffff 42%,#E0D1B3 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  #ffffff 42%,#E0D1B3 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  #ffffff 42%,#E0D1B3 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#E0D1B3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
 body {
 
+}
+header {
+	-webkit-text-shadow: -1px -1px 0px rgba(255, 255, 255, 0.5);
+	-moz-text-shadow: -1px -1px 0px rgba(255, 255, 255, 0.5);
+	-o-text-shadow: -1px -1px 0px rgba(255, 255, 255, 0.5);
+	text-shadow: -1px -1px 0px rgba(255, 255, 255, 0.5);
+	color: rgb(96, 56, 0);
+	margin-top: 10px;
 }
 #wrapper{
 	font-family:Helvetica, arial, sans-serif;
@@ -9,7 +28,7 @@ body {
 	position:relative;
 	width:1280px;
 	height:986px;
-	margin:50px auto;
+	margin:10px auto;
 	background:#000;
 	background: linear-gradient(left bottom, rgb(0,0,0) 31%, rgb(52,52,52) 100%);
 	background: -o-linear-gradient(left bottom, rgb(0,0,0) 31%, rgb(52,52,52) 100%);
@@ -76,6 +95,18 @@ body {
 #topbar p{
 	float: left;
 	margin:2px;
+}
+#music_play_icon {
+	width: 0;
+	height: 0;
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-left: 11px solid white;
+	display: block;
+	float: left;
+	margin-right: 5px;
+	margin-top: 2px;
+	display:none;
 }
 #name {
 	left:5px;
@@ -221,7 +252,7 @@ body {
 }
 
 #artist, #album {
-	color: #ccc;
+	color: #ddd;
 }
 
 #volume_slider {

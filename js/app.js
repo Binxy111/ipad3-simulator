@@ -3,9 +3,17 @@
 */
 var App = (function() {
 
-	var itunes_is_loaded = false,
-		audio = new Audio(),
-		music_screen_displayed = false;
+	var itunes_is_loaded = false, //has the home button been pressed twice yet?
+		audio = new Audio(), //used to test for compatibility
+		song_is_paused = true, //keeps track of pause/play
+		music = {
+			playlist: [], //list of songs that will play
+			index: 0,
+			current_song: null,
+			previous_song: null,
+			next_song: null,
+			library_item: null
+		};
 
 	function init() {
 		createStuff();
@@ -22,9 +30,9 @@ var App = (function() {
 		Ipad.areas.power_btn.addEventListener('click', powerOff.bind(null, false));
 		Ipad.areas.home_btn.addEventListener('click', powerOff.bind(null, true));
 		Ipad.areas.home_btn.addEventListener('dblclick', loadMusic);
-		Ipad.areas.prev_btn.addEventListener('click', Lockscreen.prevPlayer);
-		Ipad.areas.play_btn.addEventListener('click', Lockscreen.pausePlay);
-		Ipad.areas.next_btn.addEventListener('click', Lockscreen.nextPlayer);
+		Ipad.areas.prev_btn.addEventListener('click', prevPlayer);
+		Ipad.areas.play_btn.addEventListener('click', pausePlay);
+		Ipad.areas.next_btn.addEventListener('click', nextPlayer);
 	}
 
 	function createSlideToUnlock() {
@@ -38,14 +46,6 @@ var App = (function() {
 			}
 
 		});
-	}
-
-	function loadMusic() {
-		Lockscreen.loadPlayer();
-		if (!music_screen_displayed) {
-			createVolumeControl();
-			music_screen_displayed = true;
-		}
 	}
 
 	function createVolumeControl() {
@@ -66,6 +66,8 @@ var App = (function() {
 					Ipad.areas.volume_filler.style.width = (x * 100) + '%';
 				}
 				clearTimeout(Lockscreen.song_loaded_timer);
+
+				adjustVolume(x);
 			}
 		});
 	}
@@ -79,16 +81,44 @@ var App = (function() {
 		} else {
 			Lockscreen.power();
 		}
-		e.returnValue = false;
-		return false;
-	}
 
-	function loadItunes() {
-		console.log('itunes loaded');
+		e.preventDefault();
 	}
-
 
 	//audio stuff for itunes
+
+	function loadMusic(e) {
+		e = e || window.event;
+
+		Lockscreen.loadPlayer();
+
+		if (!itunes_is_loaded) {
+			var random_album = Math.floor(Math.random() * Itunes.library.length);
+			createVolumeControl();
+			loadItunes(random_album);
+			itunes_is_loaded = true;
+		}
+
+		e.preventDefault();
+	}
+
+	function loadItunes(randomAlbum) {
+		var i = 0,
+			songs = Itunes.library[randomAlbum].songs,
+			dir = Itunes.BASE_DIR + Itunes.library[randomAlbum].dir + '/',
+			song;
+
+		//@todo make this better once there is more than 1 album
+		music.library_item = randomAlbum;
+
+		for (i; i < songs.length; i++) {
+			song = loadAudio(dir + songs[i], false);
+			music.playlist.push(song);
+			//console.log('loaded: ' + songs[i]);
+		}
+		//console.log(music.playlist);
+	}
+
 	function canPlayMp3() {
 		return !!audio.canPlayType && audio.canPlayType('audio/mp3') !== "";
 	}
@@ -112,6 +142,87 @@ var App = (function() {
 		song.loop = (loop === true ? true : false);
 
 		return song;
+	}
+
+	function adjustVolume(level) {
+		if (music.current_song !== null) {
+			music.current_song.volume = level;
+		}
+	}
+
+
+	function pausePlay() {
+		if (Lockscreen.lock) {
+			if (song_is_paused) {
+				playPlayer();
+				Ipad.areas.music_play_icon.style.display = 'block';
+				song_is_paused = false;
+			} else {
+				pausePlayer();
+				Ipad.areas.music_play_icon.style.display = 'none';
+				song_is_paused = true;
+			}
+			Lockscreen.song_loaded = true;
+			clearTimeout(Lockscreen.song_loaded_timer);
+		} else {
+
+		}
+	}
+
+	function playPlayer() {
+
+		music.previous_song = music.current_song;
+		music.current_song = music.playlist[music.index];
+
+		music.current_song.play();
+
+		updateDisplay();
+
+		return false;
+	}
+
+	function pausePlayer() {
+		music.current_song.pause();
+		return false;
+	}
+
+	function nextPlayer() {
+
+		if (music.index + 1 > music.playlist.length - 1) {
+			music.index = 0;
+		} else {
+			music.index++;
+		}
+
+		music.current_song.currentTime = 0;
+		music.current_song.pause();
+
+		playPlayer();
+
+		return false;
+	}
+
+	function prevPlayer() {
+
+		if (music.current_song.currentTime < 3) {
+			if (music.index - 1 < 0) {
+				music.index = music.playlist.length - 1;
+			} else {
+				music.index--;
+			}
+		}
+
+		music.current_song.currentTime = 0;
+		music.current_song.pause();
+		playPlayer();
+
+		return false;
+	}
+
+	function updateDisplay() {
+		Ipad.areas.artist.innerHTML = Itunes.library[music.library_item].artist;
+		Ipad.areas.song.innerHTML = Itunes.library[music.library_item].songs[music.index];
+		Ipad.areas.album.innerHTML = Itunes.library[music.library_item].album;
 	}
 
 	return {
