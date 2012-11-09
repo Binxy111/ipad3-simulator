@@ -165,6 +165,9 @@ var Lockscreen = {
 		Ipad.areas.lock_icon.style.left = '0px';
 		Ipad.areas.player_bar.style.display = 'none';
 		Ipad.areas.lock_bar.style.display = 'block';
+		if (App.music.is_playing) {
+			Ipad.areas.lock_date.innerHTML = Itunes.library[App.music.library_item].songs[App.music.index];
+		}
 	},
 
 	handleMusicScreen: function() {
