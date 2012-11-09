@@ -12,8 +12,10 @@ var App = (function() {
 			current_song: null,
 			previous_song: null,
 			next_song: null,
-			library_item: null
-		};
+			library_item: null,
+			volume: 0
+		},
+		music_timer = null; //timer to listen for next song
 
 	function init() {
 		createStuff();
@@ -114,9 +116,7 @@ var App = (function() {
 		for (i; i < songs.length; i++) {
 			song = loadAudio(dir + songs[i], false);
 			music.playlist.push(song);
-			//console.log('loaded: ' + songs[i]);
 		}
-		//console.log(music.playlist);
 	}
 
 	function canPlayMp3() {
@@ -145,6 +145,7 @@ var App = (function() {
 	}
 
 	function adjustVolume(level) {
+		music.volume = level;
 		if (music.current_song !== null) {
 			music.current_song.volume = level;
 		}
@@ -175,54 +176,79 @@ var App = (function() {
 		music.current_song = music.playlist[music.index];
 
 		music.current_song.play();
-
+		music.current_song.volume = music.volume;
 		updateDisplay();
+
+		music_timer = setInterval(function() {
+			if (music.current_song.currentTime >= music.current_song.duration) {
+				clearInterval(music_timer);
+				nextPlayer();
+			}
+		}, 200);
 
 		return false;
 	}
 
 	function pausePlayer() {
+		clearInterval(music_timer);
 		music.current_song.pause();
 		return false;
 	}
 
 	function nextPlayer() {
-
+		clearInterval(music_timer);
 		if (music.index + 1 > music.playlist.length - 1) {
 			music.index = 0;
 		} else {
 			music.index++;
 		}
-
-		music.current_song.currentTime = 0;
-		music.current_song.pause();
-
-		playPlayer();
+		if (music.current_song !== null) {
+			music.current_song.currentTime = 0;
+			music.current_song.pause();
+			playPlayer();
+		} else {
+			updateDisplay();
+		}
 
 		return false;
 	}
 
-	function prevPlayer() {
-
-		if (music.current_song.currentTime < 3) {
-			if (music.index - 1 < 0) {
-				music.index = music.playlist.length - 1;
-			} else {
-				music.index--;
-			}
+	function findPrevSong() {
+		if (music.index - 1 < 0) {
+			music.index = music.playlist.length - 1;
+		} else {
+			music.index--;
 		}
+	}
 
-		music.current_song.currentTime = 0;
-		music.current_song.pause();
-		playPlayer();
-
+	function prevPlayer() {
+		clearInterval(music_timer);
+		if (music.current_song !== null) {
+			if (music.current_song.currentTime < 3) {
+				findPrevSong();
+			}
+			music.current_song.currentTime = 0;
+			music.current_song.pause();
+			playPlayer();
+		} else {
+			findPrevSong();
+			updateDisplay();
+		}
 		return false;
 	}
 
 	function updateDisplay() {
-		Ipad.areas.artist.innerHTML = Itunes.library[music.library_item].artist;
-		Ipad.areas.song.innerHTML = Itunes.library[music.library_item].songs[music.index];
-		Ipad.areas.album.innerHTML = Itunes.library[music.library_item].album;
+		var item = Itunes.library[music.library_item];
+		Ipad.areas.artist.innerHTML = item.artist;
+		Ipad.areas.song.innerHTML = item.songs[music.index];
+		Ipad.areas.album.innerHTML = item.album;
+		if (!!item.cover) {
+			Ipad.areas.screen.className = '';
+			Ipad.areas.screen.style.backgroundImage = 'url(' + Itunes.BASE_DIR + encodeURIComponent(item.dir) + '/' + encodeURIComponent(item.cover) + ')';
+		} else {
+			Ipad.areas.screen.className = 'none';
+		}
+
 	}
 
 	return {

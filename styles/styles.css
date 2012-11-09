@@ -55,6 +55,18 @@ header {
 	position:absolute;
 }
 #screen {
+	width:1024px;
+	height:768px;
+	left:128px;
+	top:100px;
+	position:absolute;
+	border-radius:3px;
+	overflow:hidden;
+	box-shadow:inset -1px -2px 1px rgba(0,0,0,.7);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+#screen.none {
 	background:#abdcfc;
 	background: linear-gradient(bottom, rgb(20,41,66) 13%, rgb(171,220,252) 50%, rgb(171,220,252) 67%, rgb(122,179,217) 92%);
 	background: -o-linear-gradient(bottom, rgb(20,41,66) 13%, rgb(171,220,252) 50%, rgb(171,220,252) 67%, rgb(122,179,217) 92%);
@@ -71,14 +83,6 @@ header {
 		color-stop(0.67, rgb(171,220,252)),
 		color-stop(0.92, rgb(122,179,217))
 	);
-	width:1024px;
-	height:768px;
-	left:128px;
-	top:100px;
-	position:absolute;
-	border-radius:3px;
-	overflow:hidden;
-	box-shadow:inset -1px -2px 1px rgba(0,0,0,.7);
 }
 #screen.off {
 	background:#000;
