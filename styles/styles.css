@@ -220,6 +220,10 @@ body {
 	);
 }
 
+#artist, #album {
+	color: #ccc;
+}
+
 #volume_slider {
 	position: relative;
 	height: 25px;
@@ -569,7 +573,10 @@ body {
 	line-height: 100%;
 
 }
-#lockbar {
+#lockbar, #track {
+	-webkit-text-shadow:-1px -1px 0px rgba(0, 0, 0, .5);
+	-moz-text-shadow:-1px -1px 0px rgba(0, 0, 0, .5);
+	-o-text-shadow:-1px -1px 0px rgba(0, 0, 0, .5);
 	text-shadow:-1px -1px 0px rgba(0, 0, 0, .5);
 }
 

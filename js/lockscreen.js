@@ -2,17 +2,18 @@ var Lockscreen = {
 
 	//properties___________________________________________
 
-	lock				: true,
-	off					: false,
-	timer				: null,
-	music				: false,
-	song_loaded			: false,
-	song_loaded_timer	: null,
+	lock					: true, //is ipad locked? as in 'slide to unlock' state
+	off						: false, //is ipad off?
+	timer					: null, // timer for the ipad clock
+	music_screen_displayed	: false, // is the music player displayed?
+	song_loaded				: false, //has a song been played yet?
+	song_loaded_timer		: null, //timer for MUSIC_TIME
+	song_is_paused			: true, //keeps track of pause/play
 
 
 	// constants___________________________________________
 
-	MUSIC_TIME		: 4000,
+	MUSIC_TIME		: 10000, // time in which to switch from music player to home screen if no song is loaded
 
 
 	init : function() {
@@ -105,6 +106,7 @@ var Lockscreen = {
 				self.lock = true;
 			}
 
+			self.showLockSetup();
 			self.off = false;
 		}
 
@@ -139,38 +141,65 @@ var Lockscreen = {
 		}
 	},
 
-	//Event Handlers _________________________________________________
+	showPlayerSetup: function() {
+		Ipad.areas.clock.style.display = 'block';
+		Ipad.areas.lock_icon.style.left = '-25px';
+		Ipad.areas.lock_bar.style.display = 'none';
+		Ipad.areas.player_bar.style.display = 'block';
+	},
 
-	loadPlayer: function() {
+	showLockSetup: function() {
+		Ipad.areas.clock.style.display = 'none';
+		Ipad.areas.lock_icon.style.left = '0px';
+		Ipad.areas.player_bar.style.display = 'none';
+		Ipad.areas.lock_bar.style.display = 'block';
+	},
+
+	handleMusicScreen: function() {
 		var self = Lockscreen;
-		if (!App.itunes_is_loaded) {
-			App.loadItunes();
-			App.itunes_is_loaded = true;
-		}
+
 		clearInterval(self.song_loaded_timer);
-		if (!self.music) {
+		if (!self.music_screen_displayed) {
 			self.clock(Ipad.areas.clock, true);
 			self.timer = setInterval(function() {
 				self.clock(Ipad.areas.clock, true);
 			}, 1000);
-			Ipad.areas.clock.style.display = 'block';
-			Ipad.areas.lock_icon.style.left = '-25px';
-			Ipad.areas.lock_bar.style.display = 'none';
-			Ipad.areas.player_bar.style.display = 'block';
+			self.showPlayerSetup();
 			if (!self.song_loaded) {
 				self.song_loaded_timer = setTimeout(function() {
-					self.music = true;
+					self.music_screen_displayed = true;
 					self.loadPlayer();
 				}, self.MUSIC_TIME);
 			}
 		} else {
-			Ipad.areas.clock.style.display = 'none';
-			Ipad.areas.lock_icon.style.left = '0px';
-			Ipad.areas.player_bar.style.display = 'none';
-			Ipad.areas.lock_bar.style.display = 'block';
+			self.showLockSetup();
+		}
+	},
+
+	//Event Handlers _________________________________________________
+
+	loadPlayer: function() {
+		if (!App.itunes_is_loaded) {
+			App.loadItunes();
+			App.itunes_is_loaded = true;
 		}
 
-		self.music = !self.music;
+		Lockscreen.handleMusicScreen();
+
+		Lockscreen.music_screen_displayed = !Lockscreen.music_screen_displayed;
+	},
+
+	pausePlay: function() {
+		var self = Lockscreen;
+		if (self.song_is_paused) {
+			self.playPlayer();
+			self.song_is_paused = false;
+		} else {
+			self.pausePlayer();
+			self.song_is_paused = true;
+		}
+		self.song_loaded = true;
+		clearTimeout(self.song_loaded_timer);
 	},
 
 	playPlayer: function() {
