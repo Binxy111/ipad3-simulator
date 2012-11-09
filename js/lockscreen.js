@@ -67,10 +67,15 @@ var Lockscreen = {
 			hour = 12;
 		}
 		area.innerHTML = hour + ":" + minutes + ampm;
-		if (locked) {
-			var formatted = date.toLocaleDateString();
-			Ipad.areas.lock_date.innerHTML = formatted.substring(0, formatted.lastIndexOf(','));
+		if (locked && !App.music.is_playing) {
+			Lockscreen.insertDate(Ipad.areas.lock_date);
 		}
+	},
+
+	insertDate: function(area) {
+		var date = new Date(),
+			formatted = date.toLocaleDateString();
+		area.innerHTML = formatted.substring(0, formatted.lastIndexOf(','));
 	},
 
 	unlock : function() {
@@ -78,6 +83,8 @@ var Lockscreen = {
 		Ipad.areas.unlock_bar.style.display = 'none';
 		Ipad.areas.player_bar.style.display = 'none';
 		Ipad.areas.lock_bar.style.display = 'none';
+		Ipad.areas.screen.style.backgroundImage = '';
+		Ipad.areas.screen.className = 'none';
 		this.lock = false;
 		Lockscreen.init();
 	},
@@ -90,12 +97,18 @@ var Lockscreen = {
 			Ipad.areas.lock_bar.style.display = 'none';
 			Ipad.areas.player_bar.style.display = 'none';
 			Ipad.areas.top_bar.style.visibility = 'hidden';
+			Ipad.areas.screen.style.backgroundImage = '';
 			Ipad.areas.screen.className = 'off';
 			self.off = true;
 		} else {
 			clearInterval(Lockscreen.timer);
 			Ipad.areas.top_bar.style.visibility = 'visible';
-			Ipad.areas.screen.className = '';
+			if (App.music.is_playing) {
+				App.updateDisplay();
+				Ipad.areas.lock_date.innerHTML = Itunes.library[App.music.library_item].songs[App.music.index];
+			} else {
+				Ipad.areas.screen.className = 'none';
+			}
 			Ipad.areas.unlock_bar.style.display = 'block';
 			Ipad.areas.lock_bar.style.display = 'block';
 			Ipad.areas.unlock_knob.style.left = 0 + 'px';

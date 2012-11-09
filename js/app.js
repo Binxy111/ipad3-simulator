@@ -13,7 +13,8 @@ var App = (function() {
 			previous_song: null,
 			next_song: null,
 			library_item: null,
-			volume: 0
+			volume: 0,
+			is_playing: false
 		},
 		music_timer = null; //timer to listen for next song
 
@@ -171,7 +172,7 @@ var App = (function() {
 	}
 
 	function playPlayer() {
-
+		music.is_playing = true;
 		music.previous_song = music.current_song;
 		music.current_song = music.playlist[music.index];
 
@@ -191,6 +192,7 @@ var App = (function() {
 
 	function pausePlayer() {
 		clearInterval(music_timer);
+		music.is_playing = false;
 		music.current_song.pause();
 		return false;
 	}
@@ -257,7 +259,9 @@ var App = (function() {
 		loadItunes: loadItunes,
 		canPlayOgg: canPlayOgg,
 		canPlayMp3: canPlayMp3,
-		loadAudio: loadAudio
+		loadAudio: loadAudio,
+		music: music,
+		updateDisplay: updateDisplay
 	};
 
 })();
