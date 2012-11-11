@@ -5,7 +5,6 @@ var App = (function() {
 
 	var itunes_is_loaded = false, //has the home button been pressed twice yet?
 		audio = new Audio(), //used to test for compatibility
-		song_is_paused = true, //keeps track of pause/play
 		music = {
 			playlist: [], //list of songs that will play
 			index: 0,
@@ -155,14 +154,14 @@ var App = (function() {
 
 	function pausePlay() {
 		if (Lockscreen.lock) {
-			if (song_is_paused) {
+			if (!music.is_playing) {
 				playPlayer();
 				Ipad.areas.music_play_icon.style.display = 'block';
-				song_is_paused = false;
+				music.is_playing = true;
 			} else {
 				pausePlayer();
 				Ipad.areas.music_play_icon.style.display = 'none';
-				song_is_paused = true;
+				music.is_playing = false;
 			}
 			Lockscreen.song_loaded = true;
 			clearTimeout(Lockscreen.song_loaded_timer);
@@ -187,14 +186,12 @@ var App = (function() {
 			}
 		}, 200);
 
-		return false;
 	}
 
 	function pausePlayer() {
 		clearInterval(music_timer);
 		music.is_playing = false;
 		music.current_song.pause();
-		return false;
 	}
 
 	function nextPlayer() {
@@ -204,15 +201,13 @@ var App = (function() {
 		} else {
 			music.index++;
 		}
-		if (music.current_song !== null) {
+		if (music.current_song !== null && music.is_playing) {
 			music.current_song.currentTime = 0;
 			music.current_song.pause();
 			playPlayer();
 		} else {
 			updateDisplay();
 		}
-
-		return false;
 	}
 
 	function findPrevSong() {
@@ -225,7 +220,7 @@ var App = (function() {
 
 	function prevPlayer() {
 		clearInterval(music_timer);
-		if (music.current_song !== null) {
+		if (music.current_song !== null && music.is_playing) {
 			if (music.current_song.currentTime < 3) {
 				findPrevSong();
 			}
@@ -236,7 +231,6 @@ var App = (function() {
 			findPrevSong();
 			updateDisplay();
 		}
-		return false;
 	}
 
 	function updateDisplay() {
