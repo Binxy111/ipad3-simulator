@@ -243,8 +243,9 @@ var App = (function() {
 		Ipad.areas.song.innerHTML = item.songs[music.index];
 		Ipad.areas.album.innerHTML = item.album;
 		if (!!item.cover) {
+			var path = 'url(' + Itunes.BASE_DIR + encodeURIComponent(item.dir) + '/' + encodeURIComponent(item.cover) + ')';
 			Ipad.areas.screen.className = '';
-			Ipad.areas.screen.style.backgroundImage = 'url(' + Itunes.BASE_DIR + encodeURIComponent(item.dir) + '/' + encodeURIComponent(item.cover) + ')';
+			Ipad.areas.screen.style.backgroundImage = path;
 		} else {
 			Ipad.areas.screen.className = 'none';
 		}
