@@ -86,7 +86,11 @@
                             <span class="second"></span>
                             <span class="third"></span>
                         </a>
-                        <a href="javascript:void(0)" id="play" class="player_btn"><span></span></a>
+                        <a href="javascript:void(0)" id="play" class="player_btn">
+                            <span class="play"></span>
+                            <span class="pause"></span>
+                            <span class="pause"></span>
+                        </a>
                         <a href="javascript:void(0)" id="next" class="player_btn">
                             <span class="first"></span>
                             <span class="second"></span>
@@ -123,7 +127,13 @@
 	</div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<!-- <script src="js/jquery.js"></script> -->
+<script type="text/javascript">
+if (!window.jQuery)
+{
+    document.write(unescape("%3Cscript src='js/jquery.js' type='text/javascript'%3E%3C/script%3E"));
+}
+</script>
+
 <script src="js/ipad.js"></script>
 <script src="js/itunes.js"></script>
 <!-- <script src="js/content.js"></script> -->

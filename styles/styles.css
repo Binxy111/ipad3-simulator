@@ -436,16 +436,28 @@ header {
 	margin-top: 0;
 }
 
-#play span {
+#play .pause {
+	height: 18px;
+	width: 1px;
+	border-left: 6px solid #fff;
+	margin: 16px 3px 0 0px;
+	float: left;
+	display: none;
+
+}
+#play span:nth-child(2) {
+	margin-left: 16px;
+}
+#play span.play {
 	width: 0;
 	height: 0;
 	border-top: 10px solid transparent;
 	border-bottom: 10px solid transparent;
 	border-left: 20px solid #fff;
-	display: block;
 	position: relative;
 	left: 16px;
 	top: 14px;
+	display: block;
 }
 
 

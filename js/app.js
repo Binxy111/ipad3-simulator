@@ -153,6 +153,8 @@ var App = (function() {
 
 
 	function pausePlay() {
+		$(Ipad.areas.play_btn).find('.play').show();
+		$(Ipad.areas.play_btn).find('.pause').hide();
 		if (Lockscreen.lock) {
 			if (!music.is_playing) {
 				playPlayer();
@@ -171,6 +173,8 @@ var App = (function() {
 	}
 
 	function playPlayer() {
+		$(Ipad.areas.play_btn).find('.play').hide();
+		$(Ipad.areas.play_btn).find('.pause').show();
 		music.is_playing = true;
 		music.previous_song = music.current_song;
 		music.current_song = music.playlist[music.index];
