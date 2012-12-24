@@ -38,6 +38,7 @@ header {
 	font-size: 120%;
 	cursor: pointer;
 	font-family: 'Impact';
+	z-index: 99999;
 }
 #feature_list_toggle.hidden {
 	color: #603800;
@@ -52,6 +53,7 @@ header {
 	padding: 10px;
 	color: #fff;
 	width: 250px;
+	z-index: 99998;
 }
 
 #feature_list li {
