@@ -2,7 +2,7 @@ var Lockscreen = {
 
 	//properties___________________________________________
 
-	lock					: true, //is ipad locked? as in 'slide to unlock' state
+	lock					: false, //is ipad locked? as in 'slide to unlock' state
 	off						: false, //is ipad off?
 	timer					: null, // timer for the ipad clock
 	music_screen_displayed	: false, // is the music player displayed?
